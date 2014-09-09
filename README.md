@@ -1,7 +1,7 @@
 ## Docker Base: Service
 
 
-This repository contains **Dockerbase** of **Service** - Base service for other services - for [Docker](https://www.docker.com/)'s [Dockerbase build](https://registry.hub.docker.com/u/dockerbase/service/) published on the public [Docker Hub Registry](https://registry.hub.docker.com/).
+This repository contains **Dockerbase** of **Service** - a base service container for other services - for [Docker](https://www.docker.com/)'s [Dockerbase build](https://registry.hub.docker.com/u/dockerbase/service/) published on the public [Docker Hub Registry](https://registry.hub.docker.com/).
 
 
 ### Depends on:
@@ -18,13 +18,13 @@ This repository contains **Dockerbase** of **Service** - Base service for other 
 
 ### Usage
 
-    FROM dockerbase/service
+    docker pull dockerbase/service
 
     run:
-        `docker run --restart=always -t --cidfile cidfile -d dockerbase/service /sbin/runit
+        docker run --restart=always -t --cidfile cidfile -d dockerbase/service /sbin/runit
 
     start:
-        `docker start \`cat cidfile\``
+        docker start `cat cidfile`
 
     stop:
-        `docker stop -t 10 \`cat cidfile\``
+        docker stop -t 10 `cat cidfile`
