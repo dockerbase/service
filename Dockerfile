@@ -1,4 +1,4 @@
-# VERSION 1.0
+# VERSION 1.1
 # DOCKER-VERSION  1.2.0
 # AUTHOR:         Richard Lee <lifuzu@gmail.com>
 # DESCRIPTION:    Ubuntu Image Container
@@ -38,12 +38,12 @@ ADD	build/runit/sshd /etc/service/sshd/run
 
 ## Install default SSH key for root.
 RUN	mkdir -p /root/.ssh && \
-	chmod 700 /root/.ssh && \
-	chown root:root /root/.ssh
+        chmod 700 /root/.ssh && \
+        chown root:root /root/.ssh
 ADD	build/insecure_key.pub /etc/insecure_key.pub
 ADD	build/insecure_key /etc/insecure_key
 RUN	chmod 644 /etc/insecure_key* && \
-	chown root:root /etc/insecure_key*
+        chown root:root /etc/insecure_key*
 ADD	build/bin/enable_insecure_key /usr/sbin/
 
 ## Install cron daemon.
@@ -60,13 +60,17 @@ ADD	build/runit/1 /etc/runit/1
 ADD	build/runit/1.d/cleanup-pids /etc/runit/1.d/cleanup-pids
 ADD	build/runit/2 /etc/runit/2
 
+# Pups
+RUN     apt-get install -y --no-install-recommends ruby rbenv
+RUN     cd / && git clone https://github.com/weimed/pups.git
+
 # Clean up system
 RUN	apt-get clean
 RUN	rm -rf /tmp/* /var/tmp/*
 RUN	rm -rf /var/lib/apt/lists/*
 
 # Set environment variables.
-ENV 	HOME /root
+ENV     HOME /root
 
 # Define working directory.
 WORKDIR /root
