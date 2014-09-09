@@ -1,0 +1,3 @@
+export LC_ALL=C
+export DEBIAN_FRONTEND=noninteractive
+alias  apt-get-install='apt-get install -y --no-install-recommends'
