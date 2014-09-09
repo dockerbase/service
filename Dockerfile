@@ -72,6 +72,5 @@ ENV 	HOME /root
 WORKDIR /root
 
 # Define default command.
-ENTRYPOINT ["/usr/sbin/runsvdir-start"]
-CMD ["-P", "/etc/service"]
+CMD ["bash"]
 

@@ -13,7 +13,13 @@ test:
 	docker run -it --rm $(NAME):$(VERSION) echo hello world!
 
 run:
-	docker run -it --rm $(NAME):$(VERSION) 
+	docker run --restart=always -t --cidfile cidfile -d $(NAME):$(VERSION) /sbin/runit
+
+start:
+	docker start `cat cidfile`
+
+stop:
+	docker stop -t 10 `cat cidfile`
 
 tag_latest:
 	docker tag $(NAME):$(VERSION) $(NAME):latest
