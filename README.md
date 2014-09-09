@@ -18,13 +18,13 @@ This repository contains **Dockerbase** of **Service** - a base service containe
 
 ### Usage
 
-    docker pull dockerbase/service
+    sudo docker pull dockerbase/service
 
     run:
-        docker run --restart=always -t --cidfile cidfile -d dockerbase/service /sbin/runit
+        sudo docker run --restart=always -t --cidfile cidfile -d dockerbase/service /sbin/runit
 
     start:
-        docker start `cat cidfile`
+        sudo docker start `cat cidfile`
 
     stop:
-        docker stop -t 10 `cat cidfile`
+        sudo docker stop -t 10 `cat cidfile`
