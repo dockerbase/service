@@ -1,5 +1,5 @@
 NAME = dockerbase/service
-VERSION = 1.1
+VERSION = 1.2
 
 .PHONY: all build test tag_latest release ssh enter
 
@@ -12,7 +12,7 @@ test:
 	docker run -it --rm $(NAME):$(VERSION) echo hello world!
 
 run:
-	docker run --name dockerbase-service --restart=always -t --cidfile cidfile -d $(NAME):$(VERSION) /sbin/runit
+	docker run --name $(subst /,-,$(NAME)) --restart=always -t --cidfile cidfile -d $(NAME):$(VERSION) /sbin/runit
 
 start:
 	docker start `cat cidfile`
@@ -23,6 +23,15 @@ stop:
 rm:
 	docker rm `cat cidfile`
 	rm -fr cidfile
+
+version:
+	docker run -it --rm $(NAME):$(VERSION) sh -c " lsb_release -d ; git --version ; ssh -V " | tee COMPONENTS
+	dos2unix COMPONENTS
+	sed -i -e 's/^/    /' COMPONENTS
+	sed -i -e '/^### Components & Versions/q' README.md
+	echo >> README.md
+	cat COMPONENTS >> README.md
+	rm COMPONENTS
 
 tag_latest:
 	docker tag $(NAME):$(VERSION) $(NAME):latest
