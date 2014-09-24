@@ -1,4 +1,4 @@
-# VERSION 1.2
+# VERSION 1.3
 # DOCKER-VERSION  1.2.0
 # AUTHOR:         Richard Lee <lifuzu@gmail.com>
 # DESCRIPTION:    Service Image Container
@@ -30,4 +30,13 @@ ADD     build/runit/cron /etc/service/cron/run
 # Checks for lost+found and scans for mtab.
 RUN	rm -f /etc/cron.daily/standard
 
+# Run dockerbase script
+ADD     ntp.sh /dockerbase/
+RUN     /dockerbase/ntp.sh
 
+# Add ntp into runit
+ADD     build/runit/ntp /etc/service/ntp/run
+
+# Run dockerbase script
+ADD     rsync.sh /dockerbase/
+RUN     /dockerbase/rsync.sh

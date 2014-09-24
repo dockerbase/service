@@ -1,8 +1,8 @@
 # Run the build scripts
 apt-get update
 
-# Install cron.
-apt-get install -y --no-install-recommends cron
+# Install rsync.
+apt-get install -y --no-install-recommends rsync
 
 # Clean up system
 apt-get clean

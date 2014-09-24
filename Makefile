@@ -1,5 +1,5 @@
 NAME = dockerbase/service
-VERSION = 1.2
+VERSION = 1.3
 
 .PHONY: all build test tag_latest release ssh enter
 
